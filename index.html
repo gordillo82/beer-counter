@@ -1,1 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beer Counter</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>🍺 Beer Counter</h1>
 
+    <section class="card">
+      <h2>Sesión</h2>
+      <div class="row">
+        <input id="sessionCode" placeholder="Código (ej: viernes-bar)" />
+        <button id="joinBtn">Entrar / Crear sesión</button>
+      </div>
+      <p id="sessionInfo" class="muted"></p>
+      <div class="row">
+        <input id="priceInput" type="number" step="0.01" min="0" placeholder="Precio cerveza (€)" />
+        <button id="savePriceBtn">Guardar precio</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Consumiciones</h2>
+      <div class="row">
+        <input id="nameInput" placeholder="Nombre" />
+        <button id="addBeerBtn">+1 Cerveza</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Birras</th>
+            <th>Total €</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <p id="grandTotal"></p>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
