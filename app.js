@@ -10,6 +10,7 @@ const priceInput = document.getElementById("priceInput");
 const savePriceBtn = document.getElementById("savePriceBtn");
 const nameInput = document.getElementById("nameInput");
 const addBeerBtn = document.getElementById("addBeerBtn");
+const resetBtn = document.getElementById("resetBtn");
 const rowsEl = document.getElementById("rows");
 const grandTotalEl = document.getElementById("grandTotal");
 
@@ -22,6 +23,7 @@ if (qp.get("s")) sessionCodeEl.value = qp.get("s");
 joinBtn.addEventListener("click", joinOrCreateSession);
 savePriceBtn.addEventListener("click", savePrice);
 addBeerBtn.addEventListener("click", addBeer);
+resetBtn.addEventListener("click", resetSession);
 
 async function joinOrCreateSession() {
   const code = (sessionCodeEl.value || "").trim().toLowerCase();
@@ -90,6 +92,23 @@ async function removeOne(id) {
     if (error) return alert(error.message);
   }
   await loadRows();
+}
+
+async function resetSession() {
+  if (!currentSession) return alert("Entra en una sesión primero");
+
+  const ok = confirm("¿Seguro que quieres resetear todas las consumiciones de esta sesión?");
+  if (!ok) return;
+
+  const { error } = await sb
+    .from("orders")
+    .delete()
+    .eq("session_id", currentSession.id);
+
+  if (error) return alert(error.message);
+
+  currentRows = [];
+  render();
 }
 
 async function loadRows() {
